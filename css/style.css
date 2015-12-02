@@ -28,7 +28,6 @@ h1 {
     background: #74863B;
 }
 
-
 .prices-accordeon--item__title i {
     font-size: 29px;
     line-height: 65px;
@@ -61,6 +60,10 @@ h1 {
     padding-left: 40px;
     margin-left: -40px;
     width: calc(100% + 40px);
+}
+
+.prices-accordeon--item__content ul li:last-child span {
+    border-bottom: 0;
 }
 
 .prices-accordeon--item__content ul > li:nth-child(2n) {
