@@ -2,23 +2,30 @@
 
     $.fn.accordeonIconate = function (options) {
 
-        var self = this;
+        var arrHeight = [], iconAccordeon;
 
-        //var settings = $.extend( {
-        //    'delay'         : 7000,
-        //    'effectAnimate': 'easeInOutBack',
-        //    optionsIconate : {                 //effects from iconate.js
-        //        from: 'fa-circle-o',
-        //        to: 'fa-circle-o',
-        //        animation: 'tada'
-        //    }
-        //}, options);
+        var accordeonItemContent = this.find('.prices-accordeon--item__content');
+        var accordeonItem = this.find('.prices-accordeon--item');
 
-        var arrHeight = [], iconAcoordeon;
-        var accordeonItemContent = $('.prices-accordeon--item__content');
-        var accordeonItem = $('.prices-accordeon--item');
+        var settings = $.extend( {
+            'timeSliding'         : 600,
+            'funcSliding'         : 'easeInOutExpo',
+            'effectAnimate': 'easeInOutBack',
+            optionsAccordeonUp : {                 //effects from iconate.js
+                from: 'fa-chevron-circle-down',
+                to: 'fa-chevron-circle-right',
+                animation: 'rotateClockwise'
+            },
+            optionsAccordeonDown : {                 //effects from iconate.js
+                from: 'fa-chevron-circle-right',
+                to: 'fa-chevron-circle-down',
+                animation: 'rotateClockwise'
+            }
+        }, options);
 
         var initAcoordeon = function () {
+
+//TODO добавление правильного класса и id иконки при инициализации
 
             accordeonItemContent.find('ul').each(function () {
 
@@ -29,23 +36,9 @@
                     $(this).height(0)
                 }
             });
-
         }();
 
-
         var slidingAccordeon = (function () {
-
-            var optionsAccordeonUp = {
-                from: 'fa-chevron-circle-down',
-                to: 'fa-chevron-circle-right',
-                animation: 'rotateClockwise'
-            };
-
-            var optionsAccordeonDown = {
-                from: 'fa-chevron-circle-right',
-                to: 'fa-chevron-circle-down',
-                animation: 'rotateClockwise'
-            };
 
             accordeonItem.on('click', function (e) {
 
@@ -59,16 +52,15 @@
 
                 $(this).find('.prices-accordeon--item__title').toggleClass('open-block');
 
-                iconAcoordeon = document.getElementById('accordeon-icon-' + index);
+                iconAccordeon = document.getElementById('accordeon-icon-' + index);
 
                 if (itemHeight === 0) {
-                    item.animate({height: arrHeight[index-1]}, 600, 'easeInOutExpo', {queue: false});
-                    iconate(iconAcoordeon, optionsAccordeonDown);
+                    item.animate({height: arrHeight[index-1]}, settings.timeSliding, settings.funcSliding, {queue: false});
+                    iconate(iconAccordeon, settings.optionsAccordeonDown);
                 }else {
-                    item.animate({height: 0}, 600, 'easeInOutExpo' , {queue: false});
-                    iconate(iconAcoordeon, optionsAccordeonUp);
+                    item.animate({height: 0}, settings.timeSliding, settings.funcSliding , {queue: false});
+                    iconate(iconAccordeon, settings.optionsAccordeonUp);
                 }
-
             });
         });
 
